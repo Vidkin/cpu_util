@@ -2,7 +2,7 @@
 CPU utilization service
 
 ## REQUIREMENTS
-Tested on python3.7.3
+Tested on python3.7.3(3.6.8)
 ```
 All package requirements listed in requirements.txt
 ```
