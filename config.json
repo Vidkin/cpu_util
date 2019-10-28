@@ -1,0 +1,7 @@
+{
+  "rabbit-host": "127.0.0.1",
+  "rabbit-port": 5672,
+  "rabbit-login": "guest",
+  "rabbit-psw": "guest",
+  "cpu-load-limit": 60
+}

@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <title>CPU utilization</title>
+  </head>
+  <body>
+    <h1>CPU utilization</h1>
+    <img src="{{ url_for('video_stream') }}">
+    <br>
+    <div style="overflow: auto; width:600px; height:200px; border: 2px solid grey;" id="messages">
+    </div>
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script>
+      function create_UUID(){
+        var dt = new Date().getTime();
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = (dt + Math.random()*16)%16 | 0;
+            dt = Math.floor(dt/16);
+            return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+        });
+        return uuid;
+      }
+
+      const uuid = create_UUID();
+
+      $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+      (function(){
+          $.getJSON(
+              $SCRIPT_ROOT+"/get_rabbit_msg?uuid=" + uuid,
+              function(data) {
+                for (msg in data['msg']){
+                  document.getElementById("messages").innerHTML = document.getElementById("messages").innerHTML + data['msg'][msg] + '<br>';
+                  document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+                 }
+              }
+          );
+          setTimeout(arguments.callee, 3000);
+      })();
+    </script>
+  </body>
+</html>
